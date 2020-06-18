@@ -10,13 +10,15 @@ app.use(express.json());
 
 // Routes
 app.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname, "/Develop/public/index.html"));
+    res.sendFile(express.static(path.join(__dirname, "/Develop/public/index.html")));
+    res.sendFile(express.static(path.join(__dirname, "/Develop/public/assets/js/index.js")));
 });
 
 app.get("/notes", function (req, res) {
     
-    app.use(express.static(path.join(__dirname, "/Develop/public/assets")));
-    res.sendFile(path.join(__dirname, "/Develop/public/notes.html"));
+    res.sendFile(express.static(path.join(__dirname, "/Develop/public/assets/js/index.js")));
+    res.sendFile(express.static(path.join(__dirname, "/Develop/public/assets/css/styles.css")));
+    res.sendFile(express.static(path.join(__dirname, "/Develop/public/notes.html")));
 });
 
 
