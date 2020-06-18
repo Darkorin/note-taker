@@ -41,8 +41,6 @@ app.post("/api/notes", function (req, res) {
         if (exists) {
             fs.readFile("./Develop/db/db.json", "utf8", (err, data) => {
                 if (err) throw err;
-                console.log(data);
-
                 let notes = JSON.parse(data);
                 notes.push(newNote);
                 writeMyFile(JSON.stringify(notes));
@@ -54,8 +52,16 @@ app.post("/api/notes", function (req, res) {
 
 });
 app.delete("/api/notes/:id", function (req, res) {
-    console.log(id);
-    return id;
+    fs.readFile("./Develop/db/db.json", "utf8", (err, data) => {
+        if (err) throw err;
+        let notes = JSON.parse(data);
+        notes.forEach(note => {
+            if (note.id === id) {
+                notes.splice(notes.indexOf(note), 1);
+            }
+        });
+        writeMyFile(JSON.stringify(notes));
+    })
 });
 
 // Starts the server to begin listening
