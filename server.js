@@ -60,7 +60,10 @@ app.delete("/api/notes/:id", function (req, res) {
                 notes.splice(notes.indexOf(note), 1);
             }
         });
-        writeMyFile(JSON.stringify(notes));
+        fs.writeFile("./Develop/db/db.json", JSON.stringify(notes), err => {
+            if (err) throw err;
+            return res.send("Delete request processed");
+        });
     })
 });
 
