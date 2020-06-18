@@ -6,6 +6,7 @@ const $noteList = $(".list-container .list-group");
 
 // activeNote is used to keep track of the note in the textarea
 let activeNote = {};
+let currentID = 0;
 
 // A function for getting all notes from the db
 const getNotes = () => {
@@ -54,7 +55,10 @@ const handleNoteSave = function () {
   const newNote = {
     title: $noteTitle.val(),
     text: $noteText.val(),
+    id: currentID
   };
+
+  currentID++;
 
   saveNote(newNote).then(() => {
     getAndRenderNotes();
@@ -81,7 +85,6 @@ const handleNoteDelete = function (event) {
 
 // Sets the activeNote and displays it
 const handleNoteView = function () {
-  console.log($(this).data());
   activeNote = $(this).data();
   renderActiveNote();
 };
@@ -139,6 +142,8 @@ const renderNoteList = (notes) => {
 // Gets notes from the db and renders them to the sidebar
 const getAndRenderNotes = () => {
   return getNotes().then(response => {
+    let resObj = JSON.parse(response);
+    currentID = resObj[resObj.length-1].id + 1;
     renderNoteList(JSON.parse(response));
   });
 };
