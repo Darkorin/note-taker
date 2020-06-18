@@ -14,9 +14,8 @@ app.get("/", function (req, res) {
 });
 
 app.get("/notes", function (req, res) {
-    res.sendFile(path.join(__dirname, "/Develop/public/notes.html"));
-    res.sendFile(path.join(__dirname, "/Develop/public/assets/css/styles.css"));
-    res.sendFile(path.join(__dirname, "/Develop/public/assets/js/index.js"));
+    // res.sendFile(path.join(__dirname, "/Develop/public/notes.html"));
+    res.sendFile(path.join(__dirname, "/Develop/public"));
 });
 
 
