@@ -14,8 +14,8 @@ app.get("/", function (req, res) {
 });
 
 app.get("/notes", function (req, res) {
-    // res.sendFile(path.join(__dirname, "/Develop/public/notes.html"));
-    app.use(express.static(path.join(__dirname, "/Develop/public")));
+    res.sendFile(path.join(__dirname, "/Develop/public/notes.html"));
+    app.use(express.static(path.join(__dirname, "/Develop/public/assets")));
 });
 
 
