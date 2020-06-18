@@ -10,8 +10,8 @@ app.use(express.json());
 
 // Routes
 app.get("/", function (req, res) {
-    app.use(express.static(path.join(__dirname, "/Develop/public/index.html")));
-    app.use(express.static(path.join(__dirname, "/Develop/public/assets/js/index.js")));
+    res.sendFile(path.join(__dirname, "/Develop/public/index.html"));
+    res.sendFile(path.join(__dirname, "/Develop/public/assets/js/index.js"));
 });
 
 app.get("/notes", function (req, res) {
