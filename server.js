@@ -54,6 +54,7 @@ app.post("/api/notes", function (req, res) {
 
 });
 app.delete("/api/notes/:id", function (req, res) {
+    console.log(id);
     res.sendFile(path.join(__dirname, "view.html"));
 });
 
