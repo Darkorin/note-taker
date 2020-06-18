@@ -9,18 +9,22 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Routes
-app.get("*", function (req, res) {
-    res.sendFile(path.join(__dirname, "index.html"));
+app.get("/", function (req, res) {
+    res.sendFile(path.join(__dirname, "/Develop/public/index.html"));
 });
 
 app.get("/notes", function (req, res) {
-    res.sendFile(path.join(__dirname, "notes.html"));
+    res.sendFile(path.join(__dirname, "/Develop/public/notes.html"));
 });
 
 
 // API Routes
 app.get("/api/notes", function (req, res) {
-    res.sendFile(path.join(__dirname, "view.html"));
+    fs.readFile("./Develop/db/db.json", "utf8", (err, data) => {
+        if (err) throw err;
+        console.log(data);
+        return res.json(data);
+    });
 });
 
 app.post("/api/notes", function (req, res) {
