@@ -28,7 +28,29 @@ app.get("/api/notes", function (req, res) {
 });
 
 app.post("/api/notes", function (req, res) {
-    res.sendFile(path.join(__dirname, "view.html"));
+    let newNote = req.body;
+
+    const writeMyFile = (body) => {
+        fs.writeFile("./Develop/db/db.json", body, err => {
+            if (err) throw err;
+            return res.json(body);
+        });
+    }
+    fs.exists("./Develop/db/db.json", exists => {
+        if (exists) {
+            fs.readFile("./Develop/db/db.json", "utf8", (err, data) => {
+                if (err) throw err;
+                console.log(data);
+
+                let notes = JSON.parse(data);
+                notes.push(newNote);
+                writeMyFile(JSON.stringify(notes));
+            })
+        } else {
+            writeMyFile((`[${JSON.stringify(newNote)}]`));
+        }
+    })
+
 });
 app.delete("/api/notes/:id", function (req, res) {
     res.sendFile(path.join(__dirname, "view.html"));
