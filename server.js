@@ -55,11 +55,16 @@ app.delete("/api/notes/:id", function (req, res) {
     fs.readFile("./Develop/db/db.json", "utf8", (err, data) => {
         if (err) throw err;
         let notes = JSON.parse(data);
+        console.log("BEFORE: " + JSON.stringify(notes));
         notes.forEach(note => {
-            if (note.id === id) {
+            console.log(`ID COMPARE: note = ${note.id}  |  param = ${req.params.id}`)
+            if (note.id == req.params.id) {
+                console.log(`pre-splice${JSON.stringify(notes)}`);
                 notes.splice(notes.indexOf(note), 1);
+                console.log(`post-splice${JSON.stringify(notes)}`);
             }
         });
+        console.log("AFTER: " + JSON.stringify(notes));
         fs.writeFile("./Develop/db/db.json", JSON.stringify(notes), err => {
             if (err) throw err;
             return res.send("Delete request processed");
